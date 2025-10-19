@@ -11,7 +11,7 @@ interface Props {
  
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
-    const note = await getSingleNote(id);
+    const note =  await getSingleNote(id);
 
  
   return {
