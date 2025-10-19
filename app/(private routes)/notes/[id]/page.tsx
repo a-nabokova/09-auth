@@ -5,12 +5,12 @@ import NoteDetailsClient from './NoteDetails.client';
 import { Metadata } from 'next';
  
 interface Props {
-    params: Promise<{ id: string }>;
+    params: { id: string };
 }
 
  
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+  const { id } = params;
     const note = await getSingleNote(id);
 
  
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 
 const NoteDetails = async ({ params }: Props) => {
-    const { id } = await params;
+    const { id } =  params;
  
     const queryClient = new QueryClient()
 
