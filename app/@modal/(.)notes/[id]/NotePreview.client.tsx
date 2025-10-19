@@ -3,7 +3,7 @@
 import css from './NotePreview.module.css';
 import { useRouter } from 'next/navigation';
 import { Note } from '@/types/note';
-import { getSingleNote } from '@/lib/api';
+import { getSingleNote } from '@/lib/api/clientApi';
 import { useQuery } from '@tanstack/react-query';
 import Modal from '@/components/Modal/Modal';
 

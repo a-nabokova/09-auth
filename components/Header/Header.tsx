@@ -1,6 +1,7 @@
 import css from './Header.module.css'
 import Link from 'next/link';
 import TagsMenu from '@/components/TagsMenu/TagsMenu'
+import AuthNavigation from '../AuthNavigation/AuthNavigation';
 import { NoteTag } from '@/types/note';
 
 const tags: NoteTag[] = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'];
@@ -18,7 +19,10 @@ export default function Header() {
       </li>
       <li>
       <TagsMenu tags={tags} />
-      </li>
+            </li>
+            
+              <AuthNavigation/>
+            
     </ul>
   </nav>
 </header>

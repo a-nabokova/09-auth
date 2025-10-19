@@ -5,6 +5,8 @@ import Footer from "../components/Footer/Footer";
 import TanStackProvider from "../components/TanStackProvider/TanStackProvider";
 import { Roboto } from 'next/font/google';
 import { Metadata } from 'next';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
+
 
 export const metadata: Metadata = {
   title: 'NoteHub',
@@ -46,12 +48,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.variable} >
         <TanStackProvider> 
+          <AuthProvider> 
         <Header />
          
           {children}
           {modal}
            <div id="modal-root" />
-          <Footer />
+            <Footer />
+            </AuthProvider>
           </TanStackProvider>
       </body>
     </html>
