@@ -1,14 +1,19 @@
  
+ 
 import { NextRequest, NextResponse } from 'next/server';
 import { api, ApiError } from '../../api';
 import { cookies } from 'next/headers';
 
- export async function GET() {
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore.toString();
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const cookieStore = cookies();
+  const cookieHeader = cookieStore.toString();  
+  const { id } = params;
 
   try {
-    const { data } = await api.get('/notes', {
+    const { data } = await api.get(`/notes/${id}`, {
       headers: {
         Cookie: cookieHeader,
       },
@@ -18,31 +23,66 @@ import { cookies } from 'next/headers';
   } catch (error) {
     return NextResponse.json(
       {
-        error: (error as ApiError).response?.data?.error ?? (error as ApiError).message,
+        error:
+          (error as ApiError).response?.data?.error ??
+          (error as ApiError).message,
       },
       { status: (error as ApiError).status ?? 500 }
     );
   }
 }
 
- export async function POST(req: NextRequest) {
-  const cookieStore = await cookies();
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const cookieStore = cookies();
   const cookieHeader = cookieStore.toString();
+  const { id } = params;
 
   try {
-    const body = await req.json();
-
-    const { data } = await api.post('/notes', body, {
+    await api.delete(`/notes/${id}`, {
       headers: {
         Cookie: cookieHeader,
       },
     });
 
-    return NextResponse.json(data, { status: 201 });
+    return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
       {
-        error: (error as ApiError).response?.data?.error ?? (error as ApiError).message,
+        error:
+          (error as ApiError).response?.data?.error ??
+          (error as ApiError).message,
+      },
+      { status: (error as ApiError).status ?? 500 }
+    );
+  }
+}
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const cookieStore = cookies();
+  const cookieHeader = cookieStore.toString();
+  const body = await req.json();
+  const { id } = params;
+
+  try {
+    const { data } = await api.patch(`/notes/${id}`, body, {
+      headers: {
+        Cookie: cookieHeader,
+      },
+    });
+
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error:
+          (error as ApiError).response?.data?.error ??
+          (error as ApiError).message,
       },
       { status: (error as ApiError).status ?? 500 }
     );
