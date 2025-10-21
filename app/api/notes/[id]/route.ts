@@ -1,13 +1,14 @@
  
  
-import { NextRequest, NextResponse } from 'next/server';
+import {  NextResponse } from 'next/server';
 import { api, ApiError } from '../../api';
 import { cookies } from 'next/headers';
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+type Props = {
+  params: { id: string }; 
+};
+
+export async function GET(request: Request, { params }: Props) {
   const cookieStore = cookies();
   const cookieHeader = cookieStore.toString();  
   const { id } = params;
@@ -32,10 +33,7 @@ export async function GET(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: Request, { params }: Props) {
   const cookieStore = cookies();
   const cookieHeader = cookieStore.toString();
   const { id } = params;
@@ -60,13 +58,10 @@ export async function DELETE(
   }
 }
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(request: Request, { params }: Props) {
   const cookieStore = cookies();
   const cookieHeader = cookieStore.toString();
-  const body = await req.json();
+  const body = await request.json();
   const { id } = params;
 
   try {
