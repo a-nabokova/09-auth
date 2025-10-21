@@ -1,17 +1,17 @@
  
  
-import {  NextResponse } from 'next/server';
+import {  NextResponse, NextRequest } from 'next/server';
 import { api, ApiError } from '../../api';
 import { cookies } from 'next/headers';
 
-type Props = {
-  params: { id: string }; 
-};
+ 
 
-export async function GET(request: Request, { params }: Props) {
+export async function GET(
+  request: NextRequest,
+  context: { params: { id: string } }) {
   const cookieStore = cookies();
   const cookieHeader = cookieStore.toString();  
-  const { id } = params;
+  const { id } = context.params;
 
   try {
     const { data } = await api.get(`/notes/${id}`, {
@@ -33,10 +33,13 @@ export async function GET(request: Request, { params }: Props) {
   }
 }
 
-export async function DELETE(request: Request, { params }: Props) {
+
+
+export async function DELETE(request: NextRequest,
+  context: { params: { id: string } } ) {
   const cookieStore = cookies();
   const cookieHeader = cookieStore.toString();
-  const { id } = params;
+  const { id } = context.params;
 
   try {
     await api.delete(`/notes/${id}`, {
@@ -58,11 +61,12 @@ export async function DELETE(request: Request, { params }: Props) {
   }
 }
 
-export async function PATCH(request: Request, { params }: Props) {
+export async function PATCH(request: NextRequest,
+  context: { params: { id: string } }) {
   const cookieStore = cookies();
   const cookieHeader = cookieStore.toString();
   const body = await request.json();
-  const { id } = params;
+  const { id } = context.params;
 
   try {
     const { data } = await api.patch(`/notes/${id}`, body, {
