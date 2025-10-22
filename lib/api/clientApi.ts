@@ -17,11 +17,10 @@ interface FetchNotesOptions {
 }
 
  
-export default async function fetchNotes({ page, perPage, search, tag }: FetchNotesOptions) {
+export default async function fetchNotes({ page,  search, tag }: FetchNotesOptions) {
      const res = await nextServer.get<FetchNotesResponse>('/notes', {
         params: {
             page,
-            perPage,
              search,  
             ...(tag ? { tag } : {})
         }
