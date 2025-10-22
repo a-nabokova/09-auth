@@ -1,5 +1,5 @@
 import type { User } from "@/types/user";
- import type { Note, NoteTag } from "../../types/note";
+ import type { Note,  NewNote } from "../../types/note";
 import { nextServer } from './api';
 
  
@@ -31,14 +31,14 @@ export default async function fetchNotes({ page,  search, tag }: FetchNotesOptio
 }
 
 
-export type CreateNotes = {
-     title: string;
-    content: string;
-    tag: NoteTag; 
+// export type CreateNotes = {
+//      title: string;
+//     content: string;
+//     tag: NoteTag; 
     
-}
+// }
 
-export  async function createNote(note: CreateNotes) {
+export  async function createNote(note: NewNote) {
     const res = await nextServer.post<Note>('/notes', note )
         return res.data; 
 }
