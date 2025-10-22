@@ -34,19 +34,17 @@ export const getServerMe = async (): Promise<User> => {
  
  interface FetchNotesOptions {
    page: number;
-   perPage: number;
    search?: string;
    tag?: string;
  }
  
   
-export default async function fetchNotes({ page, perPage, search, tag }: FetchNotesOptions) {
+export default async function fetchNotes({ page, search, tag }: FetchNotesOptions) {
   const cookieStore = await cookies();
 
   const res = await nextServer.get<FetchNotesResponse>('/notes', {
     params: {
       page,
-      perPage,
       search,
       ...(tag ? { tag } : {}),
     },
