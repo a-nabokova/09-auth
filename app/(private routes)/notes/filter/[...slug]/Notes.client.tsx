@@ -11,7 +11,7 @@ import NoteList from '@/components/NoteList/NoteList';
 import Link from 'next/link';
 import  fetchNotes  from '@/lib/api/clientApi';
 
- const PER_PAGE = 12;
+//  const PER_PAGE = 12;
 
 interface NotesClientProps {
   tag?: string;
@@ -35,7 +35,7 @@ const NotesClient = ({ tag }: NotesClientProps) => {
     queryKey: ['notes', searchValue, currentPage, tag],
      queryFn: () => fetchNotes({
         page: currentPage,
-        perPage: PER_PAGE,
+        // perPage: PER_PAGE,
         search: searchValue,
         ...(tag && tag !== 'All' ? { tag } : {}),  
       }),
