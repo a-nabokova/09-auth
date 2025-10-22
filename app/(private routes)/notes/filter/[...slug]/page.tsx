@@ -45,17 +45,17 @@ export default async function NotesPage(propsPromise: Promise<PageProps>) {
 
   const search = searchParams.search ?? '';
   const page = Number(searchParams.page ?? '1');
-  const perPage = 12;
+  // const perPage = 12;
 
    const tag = params.slug?.[0];  
 
   await queryClient.prefetchQuery({
-    queryKey: ['notes', search, page, perPage, tag],
+    queryKey: ['notes', search, page, tag],
     queryFn: () =>
       fetchNotes({
         search,
         page,
-        perPage,
+        
         ...(tag && tag !== 'All' ? { tag } : {}),
       }),
   });
