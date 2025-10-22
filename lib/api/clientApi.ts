@@ -31,7 +31,7 @@ export default async function fetchNotes({ page,  search, tag }: FetchNotesOptio
 }
 
 
-export interface CreateNotes {
+export type CreateNotes = {
      title: string;
     content: string;
     tag: NoteTag; 
