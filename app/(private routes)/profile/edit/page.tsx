@@ -5,13 +5,15 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { User } from '@/types/user';
 import { getMe, updateMe } from '@/lib/api/clientApi';
- import css from './EditProfilePage.module.css'
+import css from './EditProfilePage.module.css'
+ import { useAuthStore } from '@/lib/store/authStore';
  
 export default  function EditPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(true);
+  const setUserInStore = useAuthStore((state) => state.setUser); 
 
  useEffect(() => {
     const fetchUser = async () => {
@@ -33,7 +35,8 @@ export default  function EditPage() {
     e.preventDefault();
 
    try {
-      await updateMe({ username });  
+     const updatedUser = await updateMe({ username }); 
+     setUserInStore(updatedUser);
       router.push('/profile');
     } catch (err) {
       console.error('Could not update profile', err);

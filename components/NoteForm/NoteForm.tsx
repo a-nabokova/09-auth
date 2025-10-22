@@ -5,7 +5,7 @@
 import css from './NoteForm.module.css';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
   import { createNote } from '../../lib/api/clientApi'; 
- import { CreateNotes } from '../../lib/api/clientApi';
+ import type { CreateNotes } from '../../lib/api/clientApi';
 import { useRouter } from 'next/navigation';
 import { useId } from 'react';
 import { NewNote, NoteTag, Note } from '@/types/note';
@@ -41,7 +41,7 @@ export default function NoteForm( ) {
   };
 
   
-    const { mutate } = useMutation<Note, Error, CreateNotes>({
+    const { mutate } = useMutation<Note, Error, NewNote>({
     mutationFn: createNote,
     onSuccess: () => {
       router.push('/notes/filter/All');
@@ -101,7 +101,7 @@ export default function NoteForm( ) {
         <button type="button" className={css.cancelButton} onClick={handleCancel}>
           Cancel
         </button>
-        <button type="submit" className={css.submitButton} disabled={false}>
+        <button type="submit" className={css.submitButton} >
           Create note
         </button>
       </div>

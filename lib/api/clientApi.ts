@@ -12,8 +12,7 @@ interface FetchNotesResponse {
 
 interface FetchNotesOptions {
   page: number;
-  perPage: number;
-  search?: string;
+   search?: string;
   tag?: string;
 }
 
@@ -60,7 +59,9 @@ export  async function deleteNote(id: string) {
 
 export type RegisterRequest = {
      email: string
-    username: string,
+  username: string,
+      password: string;
+
 }
 
  
@@ -106,7 +107,7 @@ export type UpdateUserRequest = {
  };
 
 
-export const updateMe =  async (payload: {username: string}) => {
+export const updateMe =  async (payload: UpdateUserRequest) => {
   const { data } = await nextServer.patch<User>('/users/me', payload);
   return data;
 };

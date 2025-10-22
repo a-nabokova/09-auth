@@ -1,4 +1,4 @@
- import { getSingleNote } from '@/lib/api/clientApi';
+ import { getSingleNote } from '@/lib/api/serverApi';
 import NotePreview from '@/app/@modal/(.)notes/[id]/NotePreview.client';
 import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
