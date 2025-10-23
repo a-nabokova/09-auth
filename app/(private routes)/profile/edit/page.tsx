@@ -44,7 +44,7 @@ export default  function EditPage() {
   };
 
   const handleCancel = () => {
-    router.push('/profile');
+     router.back();
   };
 
   if (loading || !user) return <p>Loading...</p>;
